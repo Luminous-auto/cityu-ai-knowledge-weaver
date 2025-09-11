@@ -1,204 +1,199 @@
-# CityU AI Knowledge Weaver 🎓
+# 🎓 CityU AI Knowledge Weaver
 
-## 智能语音转写系统
+> 专为城大学生打造的智能语音转写与知识管理系统
 
-专为香港城市大学学生打造的智能语音转写平台，支持实时语音识别、多语言检测、连续录音等功能。
+[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+[![Ant Design](https://img.shields.io/badge/Ant%20Design-5.12.8-blue.svg)](https://ant.design/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![React](https://img.shields.io/badge/React-18.2.0-61dafb.svg)
-![Ant Design](https://img.shields.io/badge/Ant%20Design-5.12.8-1890ff.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+## ✨ 核心功能
 
-## ✨ 功能特点
-
-### 🎤 智能语音识别
-- **连续录音**: 支持长时间连续录音，可记录整堂课内容
-- **实时转写**: 实时将语音转换为文字，无需等待
-- **高精度识别**: 基于浏览器原生 Web Speech API，识别准确率高
+### 🎤 智能语音转写
+- **实时语音识别**：基于Web Speech API的高精度语音转文字
+- **连续录音**：支持长时间不间断录音，适合整堂课记录
+- **即时停止**：优化的录音控制，响应迅速
 
 ### 🌍 多语言支持
-- **English** (英语)
-- **Mandarin** (普通话)
-- **Cantonese** (粤语)
-- **Japanese** (日语)
-- **Korean** (韩语)
+- **自动语言检测**：智能识别语音语言并切换识别模式
+- **实时翻译**：集成Google Translate API，支持多种目标语言
+- **双语对照**：原文与译文同步显示
 
-### 🤖 智能语言检测
-- **自动检测**: 使用 LibreTranslate API 自动检测语言
-- **备选方案**: 集成 Franc 库作为离线备选检测方案
-- **智能切换**: 根据检测结果自动切换识别语言
+### 🏷️ 智能术语提取
+- **NER技术**：基于自然语言处理的命名实体识别
+- **学术术语**：专门优化学术和技术术语的识别
+- **智能过滤**：自动过滤无效和重复术语
 
-### 💾 数据安全
-- **自动备份**: 录音内容自动保存到本地存储
-- **防丢失**: 页面刷新或意外关闭后可恢复内容
-- **本地存储**: 所有数据保存在本地，保护隐私
+### 📚 知识卡片系统
+- **Wikipedia集成**：点击术语即可查看Wikipedia摘要
+- **知识链接**：构建术语间的关联关系
+- **快速查询**：即时获取术语解释和背景信息
 
-### 📱 用户体验
-- **响应式设计**: 支持桌面和移动设备
-- **现代UI**: 基于 Ant Design 的美观界面
-- **实时统计**: 显示字符数、词数、录音时长等信息
-- **一键下载**: 支持将转写结果导出为文本文件
+### 📊 知识图谱可视化
+- **动态图谱**：实时构建术语关系网络
+- **交互式界面**：支持缩放、拖拽等交互操作
+- **美观展示**：现代化的图形界面设计
+
+### 📄 文档导出功能
+- **Markdown格式**：导出完整的课堂笔记
+- **结构化内容**：包含原文、译文、术语和统计信息
+- **双链支持**：支持Obsidian等知识管理工具的双链格式
 
 ## 🚀 快速开始
 
 ### 环境要求
-- Node.js >= 16.0.0
-- npm >= 8.0.0
-- 现代浏览器 (Chrome, Edge, Safari)
+- Node.js 16.0+
+- 现代浏览器（Chrome、Edge、Safari）
+- 麦克风权限
 
-### 安装依赖
+### 安装步骤
+
 ```bash
+# 克隆项目
+git clone [your-repo-url]
+cd cityu-ai-knowledge-weaver
+
+# 安装依赖
 npm install
-```
 
-### 启动开发服务器
-```bash
+# 启动开发服务器
 npm start
 ```
 
-### 构建生产版本
-```bash
-npm run build
+### 浏览器访问
+打开 http://localhost:3000 开始使用
+
+## 🎯 完整使用流程
+
+1. **🎤 开始录音** - 点击录音按钮，授权麦克风权限
+2. **📝 实时转写** - 系统自动将语音转换为文字
+3. **🔍 语言检测** - 自动识别语言并优化识别精度
+4. **🏷️ 术语提取** - 点击"Extract Terms"提取学术术语
+5. **🌐 自动翻译** - 选择目标语言进行实时翻译
+6. **📊 构建图谱** - 点击"Build Knowledge Graph"生成知识图谱
+7. **📚 查看卡片** - 点击术语查看Wikipedia知识卡片
+8. **📄 导出文档** - 点击"Export to Markdown"保存完整笔记
+
+## 🔧 技术架构
+
+### 前端技术栈
+- **React 18.2.0** - 现代化前端框架
+- **Ant Design 5.12.8** - 企业级UI组件库
+- **Web Speech API** - 浏览器原生语音识别
+- **react-vis-network-graph** - 知识图谱可视化
+- **react-markdown** - Markdown渲染
+- **file-saver** - 文件下载功能
+
+### API集成
+- **Google Translate API** - 多语言翻译服务
+- **Wikipedia REST API** - 知识卡片数据源
+- **自定义NER API** - 术语提取服务
+
+### 项目结构
+```
+src/
+├── components/
+│   └── Transcription.js     # 主要功能组件
+├── services/
+│   └── api.js              # API服务层
+├── App.js                  # 应用入口
+└── index.js               # React入口
 ```
 
-## 🛠️ 技术栈
+## 🛠️ 核心功能实现
 
-### 前端框架
-- **React 18.2.0**: 现代化的前端框架
-- **Ant Design 5.12.8**: 企业级UI组件库
-- **Ant Design Icons**: 丰富的图标库
-
-### 核心功能
-- **Web Speech API**: 浏览器原生语音识别
-- **Axios**: HTTP 客户端，用于语言检测API调用
-- **Franc**: 离线语言检测库
-
-### 开发工具
-- **React Scripts**: 零配置的React开发工具
-- **ESLint**: 代码质量检查
-- **Prettier**: 代码格式化
-
-## 📖 使用指南
-
-### 1. 开始录音
-1. 点击 **"开始录音"** 按钮
-2. 首次使用需要授权麦克风权限
-3. 开始说话，系统会实时转写语音内容
-
-### 2. 语言设置
-- **自动检测**: 系统会根据说话内容自动检测语言
-- **手动选择**: 可在下拉菜单中手动选择识别语言
-- **实时切换**: 录音过程中可随时切换语言
-
-### 3. 文本编辑
-- 转写结果可直接在文本框中编辑
-- 支持复制、粘贴等常用操作
-- 实时显示字符数和词数统计
-
-### 4. 保存和导出
-- **自动备份**: 内容会自动保存到浏览器本地存储
-- **手动下载**: 点击 **"下载文本"** 按钮导出文件
-- **恢复备份**: 页面重新加载时可恢复之前的内容
-
-## 🔧 配置说明
-
-### 语音识别配置
+### 语音识别优化
 ```javascript
-// 识别器配置
-recognitionInstance.continuous = true;      // 连续识别
-recognitionInstance.interimResults = true;  // 显示临时结果
-recognitionInstance.lang = detectedLang;    // 识别语言
-recognitionInstance.maxAlternatives = 1;    // 最大候选数
+// 连续录音配置
+recognitionInstance.continuous = true;
+recognitionInstance.interimResults = true;
+recognitionInstance.maxAlternatives = 1;
 ```
 
-### 语言检测API
+### 知识图谱去重
 ```javascript
-// LibreTranslate API
-const response = await axios.post('https://libretranslate.de/detect', {
-  q: text.slice(-300) // 取最后300个字符进行检测
-}, {
-  timeout: 5000 // 5秒超时
-});
+// 三重唯一性保证
+const nodes = uniqueTerms.map((term, index) => ({
+  id: `node_${timestamp}_${randomSeed}_${index}`,
+  label: term,
+  // ...其他配置
+}));
 ```
 
-## 🌐 浏览器兼容性
+### 实时翻译防抖
+```javascript
+// 防抖优化，避免频繁API调用
+useEffect(() => {
+  const timer = setTimeout(() => {
+    autoTranslate(transcribedText, targetLang);
+  }, 1000);
+  return () => clearTimeout(timer);
+}, [transcribedText, targetLang]);
+```
 
-| 浏览器 | 版本要求 | 语音识别支持 |
-|--------|----------|-------------|
-| Chrome | >= 25 | ✅ 完全支持 |
-| Edge | >= 79 | ✅ 完全支持 |
-| Safari | >= 14.1 | ✅ 完全支持 |
-| Firefox | >= 最新版 | ❌ 不支持 |
+## 🔧 已解决的技术问题
 
-## 🔒 隐私保护
+### ✅ 知识图谱重复ID错误
+- **问题**：vis-network库检测到重复节点ID
+- **解决**：实现三重唯一性保证机制
+- **方案**：时间戳 + 随机种子 + 索引
 
-- **本地处理**: 语音识别在浏览器本地进行，不上传音频
-- **数据安全**: 转写内容仅保存在本地存储中
-- **API调用**: 仅在语言检测时调用外部API，不传输敏感内容
-- **用户控制**: 用户可随时清空数据和备份
+### ✅ Modal deprecated警告
+- **问题**：Ant Design Modal组件API更新
+- **解决**：将`visible`属性更新为`open`
 
-## 🐛 故障排除
+### ✅ 录音停止延迟
+- **问题**：停止录音响应缓慢
+- **解决**：优化事件监听器管理和状态更新
 
-### 常见问题
+### ✅ 翻译功能优化
+- **问题**：频繁API调用和CORS错误
+- **解决**：实现防抖机制和API切换
 
-**Q: 无法开始录音？**
-A: 请检查：
-- 浏览器是否支持语音识别
-- 麦克风权限是否已授权
-- 是否使用HTTPS协议访问
+## 📊 性能优化
 
-**Q: 识别准确率低？**
-A: 建议：
-- 在安静环境中使用
-- 说话清晰，语速适中
-- 选择正确的识别语言
+- **防抖机制**：减少不必要的API调用
+- **状态管理**：优化React状态更新
+- **内存管理**：及时清理事件监听器
+- **错误处理**：完善的异常捕获机制
 
-**Q: 页面刷新后内容丢失？**
-A: 系统会自动提示恢复备份，点击确认即可恢复。
+## 🌟 特色亮点
 
-### 错误代码说明
-
-| 错误代码 | 说明 | 解决方案 |
-|---------|------|----------|
-| no-speech | 未检测到语音 | 检查麦克风或重新说话 |
-| network | 网络错误 | 检查网络连接 |
-| not-allowed | 权限被拒绝 | 重新授权麦克风权限 |
+1. **🎯 专为学术场景优化** - 针对课堂录音和学术内容设计
+2. **🔄 完整工作流程** - 从录音到导出的一站式解决方案
+3. **🎨 现代化界面** - 美观易用的用户界面
+4. **⚡ 实时处理** - 所有功能都支持实时处理
+5. **🔗 知识关联** - 构建术语间的语义关系
+6. **📱 响应式设计** - 适配不同屏幕尺寸
 
 ## 🤝 贡献指南
 
-欢迎提交 Issue 和 Pull Request！
+欢迎提交Issue和Pull Request！
 
-### 开发流程
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 创建 Pull Request
+### 开发环境设置
+```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm start
+
+# 运行测试
+npm test
+
+# 构建生产版本
+npm run build
+```
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 👥 开发团队
 
-- **CityU Students** - 初始开发和维护
-
-## 🙏 致谢
-
-- [React](https://reactjs.org/) - 前端框架
-- [Ant Design](https://ant.design/) - UI组件库
-- [LibreTranslate](https://libretranslate.com/) - 语言检测API
-- [Franc](https://github.com/wooorm/franc) - 离线语言检测
-- [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - 语音识别
-
-## 📞 联系我们
-
-如有问题或建议，请通过以下方式联系：
-
-- 📧 Email: [your-email@cityu.edu.hk]
-- 🐛 Issues: [GitHub Issues](https://github.com/your-repo/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/your-repo/discussions)
+CityU Students - 城大学生开发团队
 
 ---
 
-**Made with ❤️ by CityU Students**
+**🚀 让学习更智能，让知识更有序！**
+
+> 如果这个项目对你有帮助，请给我们一个 ⭐ Star！
