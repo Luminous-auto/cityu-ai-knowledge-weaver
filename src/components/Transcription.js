@@ -3,7 +3,7 @@ import { Button, Input, message, Select, Row, Col, Card, Modal, List, Tag, Spin 
 import { AudioOutlined, StopOutlined, BulbOutlined, GlobalOutlined, DownloadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { franc } from 'franc';
-import { extractTerms, translateText, getWikiSummary } from '../services/api';
+import { extractTerms, translateText, getWikiSummary, searchWikipedia } from '../services/api';
 import { saveAs } from 'file-saver';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -26,7 +26,7 @@ const Transcription = () => {
   const [targetLang, setTargetLang] = useState('en');
   const [modalVisible, setModalVisible] = useState(false);
   const [currentTerm, setCurrentTerm] = useState('');
-  const [summary, setSummary] = useState('');
+  const [summary, setSummary] = useState({ extract: '', url: '', thumbnail: null });
   const [graphData, setGraphData] = useState({ nodes: [], edges: [] });
   const [globalLoading, setGlobalLoading] = useState(false);
 
@@ -390,8 +390,22 @@ const Transcription = () => {
   // 处理术语点击
   const handleTermClick = async (term) => {
     setCurrentTerm(term);
-    setSummary(await getWikiSummary(term));
     setModalVisible(true);
+    setSummary({ extract: '正在加载Wikipedia信息...', url: '', thumbnail: null });
+    
+    try {
+      const wikiData = await getWikiSummary(term);
+      setSummary(wikiData);
+    } catch (error) {
+      console.error('获取Wikipedia信息失败:', error);
+      setSummary({
+        extract: '获取Wikipedia信息失败，请稍后重试。',
+        url: `https://en.wikipedia.org/wiki/Special:Search/${encodeURIComponent(term)}`,
+        thumbnail: null,
+        title: term,
+        lang: 'error'
+      });
+    }
   };
 
   // 调试工具：检查重复ID
@@ -820,12 +834,109 @@ ${terms.map(t => `- **${t}** - [[${t}]]`).join('\n')}
 
       {/* Wikipedia知识卡片Modal */}
       <Modal
-        title={`${currentTerm} 知识卡片`}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>📚</span>
+            <span>{currentTerm} - Wikipedia知识卡片</span>
+            {summary?.lang && (
+              <span style={{ 
+                fontSize: '12px', 
+                color: '#666',
+                backgroundColor: '#f0f0f0',
+                padding: '2px 6px',
+                borderRadius: '4px'
+              }}>
+                {summary.lang === 'en' ? '🇺🇸 EN' : summary.lang === 'zh' ? '🇨🇳 ZH' : '🔍'}
+              </span>
+            )}
+          </div>
+        }
         open={modalVisible}
         onOk={() => setModalVisible(false)}
         onCancel={() => setModalVisible(false)}
+        width={600}
+        footer={[
+          <Button key="search" type="link" 
+            onClick={() => window.open(summary?.url || `https://en.wikipedia.org/wiki/Special:Search/${encodeURIComponent(currentTerm)}`, '_blank')}
+          >
+            🔗 在Wikipedia中查看
+          </Button>,
+          <Button key="close" type="primary" onClick={() => setModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
       >
-        <p style={{ color: '#1890ff' }}>{summary}</p>
+        <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+          {summary?.thumbnail && (
+            <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+              <img 
+                src={summary.thumbnail} 
+                alt={currentTerm}
+                style={{ 
+                  maxWidth: '200px', 
+                  maxHeight: '150px', 
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}
+              />
+            </div>
+          )}
+          
+          <div style={{ 
+            fontSize: '14px', 
+            lineHeight: '1.6',
+            color: '#333'
+          }}>
+            {typeof summary === 'string' ? (
+              <p>{summary}</p>
+            ) : (
+              <>
+                <p>{summary?.extract || '正在加载...'}</p>
+                
+                {summary?.title && summary.title !== currentTerm && (
+                  <div style={{ 
+                    marginTop: '12px',
+                    padding: '8px 12px',
+                    backgroundColor: '#f6f8fa',
+                    borderRadius: '6px',
+                    fontSize: '13px',
+                    color: '#666'
+                  }}>
+                    <strong>标准名称:</strong> {summary.title}
+                  </div>
+                )}
+                
+                {summary?.lang === 'search' && (
+                  <div style={{ 
+                    marginTop: '12px',
+                    padding: '8px 12px',
+                    backgroundColor: '#fff7e6',
+                    borderRadius: '6px',
+                    fontSize: '13px',
+                    color: '#d46b08',
+                    border: '1px solid #ffd591'
+                  }}>
+                    💡 <strong>提示:</strong> 点击下方链接搜索更多相关信息
+                  </div>
+                )}
+                
+                {summary?.lang === 'error' && (
+                  <div style={{ 
+                    marginTop: '12px',
+                    padding: '8px 12px',
+                    backgroundColor: '#fff2f0',
+                    borderRadius: '6px',
+                    fontSize: '13px',
+                    color: '#cf1322',
+                    border: '1px solid #ffccc7'
+                  }}>
+                    ⚠️ <strong>错误:</strong> 无法获取Wikipedia信息，请检查网络连接
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </Modal>
 
       <style>{`

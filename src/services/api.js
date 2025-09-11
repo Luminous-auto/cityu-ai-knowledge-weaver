@@ -122,14 +122,107 @@ export async function translateText(text, targetLang) {
   }
 }
 
-// 获取Wikipedia摘要
+// 获取Wikipedia摘要 - 增强版
 export async function getWikiSummary(term) {
+  if (!term) return { extract: '无效术语', url: '', thumbnail: null };
+  
   try {
-    const response = await axios.get(
-      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`
+    console.log('正在获取Wikipedia摘要:', term);
+    
+    // 首先尝试英文Wikipedia
+    let response = await axios.get(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`,
+      {
+        timeout: 10000,
+        headers: {
+          'User-Agent': 'CityU-AI-Knowledge-Weaver/1.0'
+        }
+      }
     );
-    return response.data.extract || '无摘要';
-  } catch {
-    return 'Wikipedia错误';
+    
+    if (response.data && response.data.extract) {
+      return {
+        extract: response.data.extract,
+        url: response.data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(term)}`,
+        thumbnail: response.data.thumbnail?.source || null,
+        title: response.data.title || term,
+        lang: 'en'
+      };
+    }
+    
+    // 如果英文没找到，尝试中文Wikipedia
+    console.log('英文Wikipedia未找到，尝试中文...');
+    response = await axios.get(
+      `https://zh.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`,
+      {
+        timeout: 10000,
+        headers: {
+          'User-Agent': 'CityU-AI-Knowledge-Weaver/1.0'
+        }
+      }
+    );
+    
+    if (response.data && response.data.extract) {
+      return {
+        extract: response.data.extract,
+        url: response.data.content_urls?.desktop?.page || `https://zh.wikipedia.org/wiki/${encodeURIComponent(term)}`,
+        thumbnail: response.data.thumbnail?.source || null,
+        title: response.data.title || term,
+        lang: 'zh'
+      };
+    }
+    
+    return {
+      extract: `未找到关于"${term}"的Wikipedia条目。这可能是一个专业术语或新概念。`,
+      url: `https://en.wikipedia.org/wiki/Special:Search/${encodeURIComponent(term)}`,
+      thumbnail: null,
+      title: term,
+      lang: 'search'
+    };
+    
+  } catch (error) {
+    console.error('Wikipedia API错误:', error);
+    
+    if (error.response?.status === 404) {
+      return {
+        extract: `未找到关于"${term}"的Wikipedia条目。`,
+        url: `https://en.wikipedia.org/wiki/Special:Search/${encodeURIComponent(term)}`,
+        thumbnail: null,
+        title: term,
+        lang: 'notfound'
+      };
+    }
+    
+    return {
+      extract: `获取Wikipedia信息时出错: ${error.message}`,
+      url: `https://en.wikipedia.org/wiki/Special:Search/${encodeURIComponent(term)}`,
+      thumbnail: null,
+      title: term,
+      lang: 'error'
+    };
+  }
+}
+
+// 搜索Wikipedia条目
+export async function searchWikipedia(query, limit = 5) {
+  try {
+    console.log('搜索Wikipedia条目:', query);
+    
+    const response = await axios.get(
+      `https://en.wikipedia.org/api/rest_v1/page/search/${encodeURIComponent(query)}`,
+      {
+        params: { limit },
+        timeout: 10000,
+        headers: {
+          'User-Agent': 'CityU-AI-Knowledge-Weaver/1.0'
+        }
+      }
+    );
+    
+    return response.data.pages || [];
+    
+  } catch (error) {
+    console.error('Wikipedia搜索错误:', error);
+    return [];
   }
 }
