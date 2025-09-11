@@ -1,0 +1,58 @@
+{
+  "name": "cityu-ai-knowledge-weaver",
+  "version": "1.0.0",
+  "description": "CityU AI Knowledge Weaver - 智能语音转写系统",
+  "main": "src/App.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "react-scripts start"
+  },
+  "keywords": [
+    "speech-recognition",
+    "transcription",
+    "ai",
+    "cityu",
+    "voice-to-text",
+    "language-detection"
+  ],
+  "author": "CityU Students",
+  "license": "MIT",
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "antd": "^5.12.8",
+    "axios": "^1.6.2",
+    "file-saver": "^2.0.5",
+    "franc": "^6.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "react-scripts": "5.0.1",
+    "react-vis-network-graph": "^3.0.1",
+    "remark-gfm": "^4.0.1",
+    "web-vitals": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "homepage": ".",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

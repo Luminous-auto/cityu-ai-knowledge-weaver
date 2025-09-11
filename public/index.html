@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1890ff" />
+    <meta name="description" content="CityU AI Knowledge Weaver - 智能语音转写系统，支持实时语音识别、多语言检测、连续录音等功能" />
+    <meta name="keywords" content="语音识别,转写,AI,城大,语音转文字,语言检测" />
+    <meta name="author" content="CityU Students" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CityU AI Knowledge Weaver" />
+    <meta property="og:description" content="智能语音转写系统，专为城大学生打造" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="CityU AI Knowledge Weaver" />
+    <meta property="twitter:description" content="智能语音转写系统，专为城大学生打造" />
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://libretranslate.de">
+    <link rel="dns-prefetch" href="https://libretranslate.de">
+    
+    <title>CityU AI Knowledge Weaver - 智能语音转写系统</title>
+    
+    <style>
+      /* 加载动画 */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      .loading-text {
+        color: white;
+        font-size: 18px;
+        margin-top: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* 隐藏加载动画 */
+      .loading-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>您需要启用 JavaScript 来运行此应用程序。</noscript>
+    
+    <!-- 加载动画 -->
+    <div id="loading" class="loading-container">
+      <div style="text-align: center;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在加载 CityU AI Knowledge Weaver...</div>
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <script>
+      // 页面加载完成后隐藏加载动画
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const loading = document.getElementById('loading');
+          if (loading) {
+            loading.classList.add('loading-hidden');
+            setTimeout(function() {
+              loading.style.display = 'none';
+            }, 500);
+          }
+        }, 1000);
+      });
+      
+      // 检查浏览器兼容性
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        console.warn('当前浏览器不支持语音识别功能');
+      }
+      
+      // 服务工作者注册（用于PWA支持）
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

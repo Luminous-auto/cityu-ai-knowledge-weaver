@@ -1,0 +1,19 @@
+{
+  "short_name": "CityU AI Weaver",
+  "name": "CityU AI Knowledge Weaver",
+  "description": "智能语音转写系统，专为城大学生打造",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1890ff",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity", "utilities"],
+  "lang": "zh-CN"
+}

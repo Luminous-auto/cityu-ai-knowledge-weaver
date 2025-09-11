@@ -1,0 +1,253 @@
+/* App.css - CityU AI Knowledge Weaver 样式文件 */
+
+.App {
+  text-align: center;
+}
+
+/* 全局样式重置 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 录音状态指示器 */
+.recording-indicator {
+  animation: pulse 1.5s infinite;
+}
+
+/* 渐变背景 */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 卡片阴影效果 */
+.card-shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-shadow:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 按钮悬停效果 */
+.ant-btn {
+  transition: all 0.3s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* 文本区域样式 */
+.ant-input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ant-input:focus {
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ant-layout-content {
+    padding: 16px !important;
+  }
+  
+  .ant-card {
+    margin: 8px 0 !important;
+  }
+  
+  .ant-card-body {
+    padding: 16px !important;
+  }
+}
+
+/* 自定义滚动条 */
+.ant-input::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ant-input::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.ant-input::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.ant-input::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 加载动画 */
+.loading-spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 成功状态样式 */
+.success-text {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+/* 错误状态样式 */
+.error-text {
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+/* 警告状态样式 */
+.warning-text {
+  color: #faad14;
+  font-weight: 500;
+}
+
+/* 统计信息面板 */
+.stats-panel {
+  background: linear-gradient(90deg, #f0f2f5 0%, #fafafa 100%);
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 16px;
+}
+
+/* 语言标签样式 */
+.language-tag {
+  font-weight: 500;
+  border-radius: 12px;
+}
+
+/* 录音按钮特殊样式 */
+.recording-button {
+  background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.3) !important;
+}
+
+.recording-button:hover {
+  background: linear-gradient(135deg, #73d13d 0%, #52c41a 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.4) !important;
+}
+
+/* 停止按钮样式 */
+.stop-button {
+  background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%) !important;
+  border: none !important;
+}
+
+.stop-button:hover {
+  background: linear-gradient(135deg, #ff7875 0%, #ff4d4f 100%) !important;
+  transform: translateY(-2px);
+}
+
+/* 文本区域焦点样式 */
+.transcription-textarea {
+  border-radius: 8px !important;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  line-height: 1.6 !important;
+}
+
+.transcription-textarea:focus {
+  border-color: #40a9ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+/* 头部样式 */
+.app-header {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 页脚样式 */
+.app-footer {
+  background: linear-gradient(135deg, #001529 0%, #002140 100%);
+}
+
+/* 欢迎卡片样式 */
+.welcome-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 功能图标样式 */
+.feature-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.feature-icon:hover {
+  transform: scale(1.1);
+}
+
+/* 提示信息样式 */
+.info-alert {
+  border-radius: 8px;
+  border-left: 4px solid #1890ff;
+}
+
+.warning-alert {
+  border-radius: 8px;
+  border-left: 4px solid #faad14;
+}
+
+/* 移动端优化 */
+@media (max-width: 576px) {
+  .welcome-card {
+    padding: 24px 16px !important;
+  }
+  
+  .welcome-card h2 {
+    font-size: 20px !important;
+  }
+  
+  .feature-icons {
+    gap: 16px !important;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .control-buttons .ant-btn {
+    margin-bottom: 8px;
+  }
+}
