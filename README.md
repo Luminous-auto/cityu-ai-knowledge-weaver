@@ -188,12 +188,6 @@ npm run build
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
 
-## 👥 开发团队
-
-CityU Students - 城大学生开发团队
-
----
-
 **🚀 让学习更智能，让知识更有序！**
 
 > 如果这个项目对你有帮助，请给我们一个 ⭐ Star！
