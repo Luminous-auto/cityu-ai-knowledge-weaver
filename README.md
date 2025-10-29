@@ -86,7 +86,8 @@ npm start
 ### API集成
 - **Google Translate API** - 多语言翻译服务
 - **Wikipedia REST API** - 知识卡片数据源
-- **自定义NER API** - 术语提取服务
+- **微调BART 模型** - 针对教师口音问题的语音识别
+- **微调NER 模型** - 术语提取服务
 
 ### 项目结构
 ```
@@ -129,26 +130,6 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [transcribedText, targetLang]);
 ```
-
-## 🔧 已解决的技术问题
-
-### ✅ 知识图谱重复ID错误
-- **问题**：vis-network库检测到重复节点ID
-- **解决**：实现三重唯一性保证机制
-- **方案**：时间戳 + 随机种子 + 索引
-
-### ✅ Modal deprecated警告
-- **问题**：Ant Design Modal组件API更新
-- **解决**：将`visible`属性更新为`open`
-
-### ✅ 录音停止延迟
-- **问题**：停止录音响应缓慢
-- **解决**：优化事件监听器管理和状态更新
-
-### ✅ 翻译功能优化
-- **问题**：频繁API调用和CORS错误
-- **解决**：实现防抖机制和API切换
-
 ## 📊 性能优化
 
 - **防抖机制**：减少不必要的API调用
